@@ -4,14 +4,19 @@ public class FoodTruck {
 	private int numericID;
 	private String name;
 	private String foodType;
-	private double numericRating;
+	private int numericRating;
 
 
-public FoodTruck(String name, String foodType, double numericRating) {
-	
+public FoodTruck(String name, String foodType, int numericRating) {
+	this.name = name;
+	this.foodType = foodType;
+	this.numericRating = numericRating;
 }
 
-public 
+public FoodTruck(String name, String foodType, int numericRating, int numericID) {
+	this(name, foodType, numericRating);
+	this.numericID = numericID;
+}
 
 public String getName() {
 	return name;
@@ -38,7 +43,7 @@ public double getNumericRating() {
 }
 
 
-public void setNumericRating(double numericRating) {
+public void setNumericRating(int numericRating) {
 	this.numericRating = numericRating;
 }
 }
