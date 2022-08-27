@@ -4,7 +4,7 @@ public class FoodTruck {
 	private int numericID;
 	private String name;
 	private String foodType;
-	private int numericRating;
+	private double numericRating;
 
 
 public FoodTruck(String name, String foodType, int numericRating) {
@@ -43,7 +43,27 @@ public double getNumericRating() {
 }
 
 
-public void setNumericRating(int numericRating) {
+public void setNumericRating(double numericRating) {
 	this.numericRating = numericRating;
 }
+
+public String toString() {
+	String output = "Food Truck Name: " + name + "\n Food Type: " + foodType + "\nNumericRating: " + numericRating;
+	return output;
+}
+
+public void foodTruckData() {
+	String truckData = this.toString();
+	System.out.println(truckData);
+}
+
+public String stringName() {
+	String output = "Food Truck Name: " + name + " ";
+	return output;
+}
+
+//public void listOfNames() {
+//	String listNames = this.stringName();
+//	System.out.println(listNames);
+//}
 }
