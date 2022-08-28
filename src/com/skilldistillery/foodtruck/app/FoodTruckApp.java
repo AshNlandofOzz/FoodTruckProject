@@ -12,7 +12,6 @@ public class FoodTruckApp {
 		Scanner scan = new Scanner(System.in);
 		String userInName, userInType;
 		int userInRating;
-		// Need to iterate this loop up to five times with quit exit to while loop.
 		int i = 0;
 		System.out.println("How many trucks would you like to review? ");
 		int numTrucks = scan.nextInt();
@@ -32,39 +31,42 @@ public class FoodTruckApp {
 			userInType = scan.next();
 			System.out.println("Rating on scale 1 to 5 (Ate 1 and done, could easily eat 5-the best): ");
 			userInRating = scan.nextInt();
-			trucks[i] = new FoodTruck(userInName, userInType, userInRating);
+			while (userInRating > 5) {
+				System.out.println("That is not a valid rating");
+				System.out.println("Rating on scale 1 to 5 (Ate 1 and done, could easily eat 5-the best): ");
+				userInRating = scan.nextInt();
+			}
+			trucks[i] = new FoodTruck(userInName, userInType, userInRating); 
 			i++;
 		} while (i < numTrucks);
+
+		//trucks[2].foodTruckData();  <--- This is a tester to ensure numericID is iterating properly.
 
 		ourFoodTruckApp.MainMenu();
 		int option = 0;
 		while (option != 4) {
-		System.out.println("Please select an option: ");
-		option = scan.nextInt();
-
-		switch (option) {
-		
-		case 1:
-			ourFoodTruckApp.listTrucks(trucks);
-			break;
-		case 2:
-			ourFoodTruckApp.calculateAverage(trucks);
-			break;
-		case 3:
-			ourFoodTruckApp.highestRating(trucks);
-			break;
-		case 4:
-			System.out.println("You entered quit. Thank you for participating. Goodbye. ");
-			break;
-		default:
-			System.out.println("That's not an option, Try again. ");
-			break;
-
-		}
+			System.out.println("Please select an option: ");
+			option = scan.nextInt();
+			switch (option) {
+			case 1:
+				ourFoodTruckApp.listTrucks(trucks);
+				break;
+			case 2:
+				ourFoodTruckApp.calculateAverage(trucks);
+				break;
+			case 3:
+				ourFoodTruckApp.highestRating(trucks);
+				break;
+			case 4:
+				System.out.println("You entered quit. Thank you for participating. Goodbye. ");
+				break;
+			default:
+				System.out.println("That's not an option, Try again. ");
+				break;
+			}
 		}
 		scan.close();
 	}
-	 
 
 	public void Welcome() {
 		System.out.println("Welcome to the Food Truck Food Court Review App!");
@@ -100,13 +102,12 @@ public class FoodTruckApp {
 	}
 
 	public void highestRating(FoodTruck[] trucks) {
-		double highestRating = 0;
+		FoodTruck highestFoodTruck = trucks[0];
 		for (int i = 0; i < trucks.length; i++) {
-			if (trucks[i].getNumericRating() > highestRating) {
-				highestRating = trucks[i].getNumericRating();
+			if (trucks[i].getNumericRating() > highestFoodTruck.getNumericRating()) {
+				highestFoodTruck = trucks[i];
 			}
 		}
-		System.out.println("The highest rating is: " + highestRating + "." + "that is truck: " );
-		//return highestRating;
+		System.out.println("The highest rated is: " + highestFoodTruck.getName());
 	}
 }
