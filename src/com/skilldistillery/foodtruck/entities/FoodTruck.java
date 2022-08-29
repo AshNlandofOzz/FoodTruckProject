@@ -34,9 +34,6 @@ public class FoodTruck {
 		return foodType;
 	}
 
-	public void setFoodType(String foodType) {
-		this.foodType = foodType;
-	}
 
 	public double getNumericRating() {
 		return numericRating;
@@ -47,8 +44,8 @@ public class FoodTruck {
 	}
 
 	public String toString() {
-		String output = "Food Truck Name: " + name + "\n Food Type: " + foodType + "\nNumericRating: " + numericRating
-				+ "nmeric ID: :" + numericID;
+		String output = "Food Truck Name: " + name + "\nFood Type: " + foodType + "\nNumericRating: " + numericRating
+				+ "\nNumeric ID: " + numericID + "\n\n" ;
 		return output;
 	}
 

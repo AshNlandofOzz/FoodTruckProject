@@ -12,21 +12,15 @@ public class FoodTruckApp {
 		Scanner scan = new Scanner(System.in);
 		String userInName, userInType;
 		int userInRating;
-		int i = 0;
-		System.out.println("How many trucks would you like to review? ");
-		int numTrucks = scan.nextInt();
-		while (numTrucks > 5) {
-			System.out.println("That is not a valid number of trucks, try again.");
-			System.out.println("How many trucks would you like to review? ");
-			numTrucks = scan.nextInt();
-		}
-		FoodTruck[] trucks = new FoodTruck[numTrucks];
+		int numTrucks = 0;
+		int MAX_INPUT = 5;
+		FoodTruck[] trucks = new FoodTruck[MAX_INPUT];
 		do {
 			System.out.print("Name: ");
 			userInName = scan.next();
 			if (userInName.equalsIgnoreCase("quit")) {
-				ourFoodTruckApp.MainMenu();
-			}
+				break;
+			} 
 			System.out.println("Food Type: ");
 			userInType = scan.next();
 			System.out.println("Rating on scale 1 to 5 (Ate 1 and done, could easily eat 5-the best): ");
@@ -36,26 +30,24 @@ public class FoodTruckApp {
 				System.out.println("Rating on scale 1 to 5 (Ate 1 and done, could easily eat 5-the best): ");
 				userInRating = scan.nextInt();
 			}
-			trucks[i] = new FoodTruck(userInName, userInType, userInRating); 
-			i++;
-		} while (i < numTrucks);
+			trucks[numTrucks] = new FoodTruck(userInName, userInType, userInRating); 
+			numTrucks++;
+		} while (numTrucks < MAX_INPUT);
 
-		//trucks[2].foodTruckData();  <--- This is a tester to ensure numericID is iterating properly.
-
-		ourFoodTruckApp.MainMenu();
 		int option = 0;
 		while (option != 4) {
 			System.out.println("Please select an option: ");
+			ourFoodTruckApp.MainMenu();
 			option = scan.nextInt();
 			switch (option) {
 			case 1:
-				ourFoodTruckApp.listTrucks(trucks);
+				ourFoodTruckApp.listTrucks(trucks, numTrucks);
 				break;
 			case 2:
-				ourFoodTruckApp.calculateAverage(trucks);
+				ourFoodTruckApp.calculateAverage(trucks, numTrucks);
 				break;
 			case 3:
-				ourFoodTruckApp.highestRating(trucks);
+				ourFoodTruckApp.highestRating(trucks, numTrucks);
 				break;
 			case 4:
 				System.out.println("You entered quit. Thank you for participating. Goodbye. ");
@@ -74,40 +66,39 @@ public class FoodTruckApp {
 	}
 
 	public void MainMenu() {
-		System.out.println("Thank you for your input. What would you like to do next? ");
 		System.out.println("1. List all existing food trucks.");
 		System.out.println("2. See the average rating of food trucks.");
 		System.out.println("3. Display the highest-rated food truck.");
 		System.out.println("4. Quit the program.");
 	}
 
-	public double calculateAverage(FoodTruck[] trucks) {
+	public double calculateAverage(FoodTruck[] trucks, int numTrucks) {
 		double average = 0;
 		double sum = 0;
-		for (int i = 0; i < trucks.length; i++) {
+		for (int i = 0; i < numTrucks; i++) {
 			sum += trucks[i].getNumericRating();
 		}
-		average = sum / trucks.length;
+		average = sum / numTrucks;
 		System.out.println("The average is: " + average);
 		return average;
 	}
 
-	public String listTrucks(FoodTruck[] trucks) {
+	public String listTrucks(FoodTruck[] trucks, int numTrucks) {
 		String listNames = "";
-		for (int i = 0; i < trucks.length; i++) {
-			listNames += trucks[i].stringName();
+		for (int i = 0; i < numTrucks; i++) {
+			listNames += trucks[i].toString();
 		}
 		System.out.println(listNames);
 		return listNames;
 	}
 
-	public void highestRating(FoodTruck[] trucks) {
+	public void highestRating(FoodTruck[] trucks, int numTrucks) {
 		FoodTruck highestFoodTruck = trucks[0];
-		for (int i = 0; i < trucks.length; i++) {
+		for (int i = 0; i < numTrucks; i++) {
 			if (trucks[i].getNumericRating() > highestFoodTruck.getNumericRating()) {
 				highestFoodTruck = trucks[i];
 			}
 		}
-		System.out.println("The highest rated is: " + highestFoodTruck.getName());
+		System.out.println("The highest rated is: \n" + highestFoodTruck.toString());
 	}
 }
